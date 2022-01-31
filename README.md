@@ -12,7 +12,9 @@ The aim of this project was to code a python script capable of making holomonic 
 constantly driving the robot around the environment in the counter-clockwise direction,
 Avoiding the gold tokens,
 And once the robot will get close enough to a silver token, it should grab it and move it behind itself. enivorment
-Installing and running
+![enivorment](https://user-images.githubusercontent.com/91262613/151734072-f01ee69f-a18b-4a20-a712-bd72933b8bf0.png)
+
+### Installing and running
 
 The simulator requires a Python 2.7 installation, the pygame library, PyPyBox2D, and PyYAML.
 
@@ -233,24 +235,26 @@ Step 3 Thanks to the return function if golden fucntion is near to the robot rob
                 #Grabbing routine of the silver token
 ```
 ### Vision
-To help the robot find tokens and navigate, each token has markers stuck to it, as does each wall. The R.see method returns a list of all the markers the robot can see, as Marker objects. The robot can only see markers which it is facing towards.
+To help the robot find tokens and navigate, each token has markers stuck to it, as does each wall. The `R.see` method returns a list of all the markers the robot can see, as `Marker` objects. The robot can only see markers which it is facing towards.
 
-Each Marker object has the following attributes:
+Each `Marker` object has the following attributes:
 
-info: a MarkerInfo object describing the marker itself. Has the following attributes:
-code: the numeric code of the marker.
-marker_type: the type of object the marker is attached to (either MARKER_TOKEN_GOLD, MARKER_TOKEN_SILVER or MARKER_ARENA).
-offset: offset of the numeric code of the marker from the lowest numbered marker of its type. For example, token number 3 has the code 43, but offset 3.
-size: the size that the marker would be in the real game, for compatibility with the SR API.
-centre: the location of the marker in polar coordinates, as a PolarCoord object. Has the following attributes:
-length: the distance from the centre of the robot to the object (in metres).
-rot_y: rotation about the Y axis in degrees.
-dist: an alias for centre.length
-res: the value of the res parameter of R.see, for compatibility with the SR API.
-rot_y: an alias for centre.rot_y
-timestamp: the time at which the marker was seen (when R.see was called).
+* `info`: a `MarkerInfo` object describing the marker itself. Has the following attributes:
+  * `code`: the numeric code of the marker.
+  * `marker_type`: the type of object the marker is attached to (either `MARKER_TOKEN_GOLD`, `MARKER_TOKEN_SILVER` or `MARKER_ARENA`).
+  * `offset`: offset of the numeric code of the marker from the lowest numbered marker of its type. For example, token number 3 has the code 43, but offset 3.
+  * `size`: the size that the marker would be in the real game, for compatibility with the SR API.
+* `centre`: the location of the marker in polar coordinates, as a `PolarCoord` object. Has the following attributes:
+  * `length`: the distance from the centre of the robot to the object (in metres).
+  * `rot_y`: rotation about the Y axis in degrees.
+* `dist`: an alias for `centre.length`
+* `res`: the value of the `res` parameter of `R.see`, for compatibility with the SR API.
+* `rot_y`: an alias for `centre.rot_y`
+* `timestamp`: the time at which the marker was seen (when `R.see` was called).
+
 For example, the following code lists all of the markers the robot can see:
 
+```python
 markers = R.see()
 print "I can see", len(markers), "markers:"
 
@@ -258,4 +262,4 @@ for m in markers:
     if m.info.marker_type in (MARKER_TOKEN_GOLD, MARKER_TOKEN_SILVER):
         print " - Token {0} is {1} metres away".format( m.info.offset, m.dist )
     elif m.info.marker_type == MARKER_ARENA:
-        print " - Arena marker {0} is {1} metres away".format( m.info.offset, m.dist 
+        print " - Arena marker {0} is {1} metres away".format( m.info.offset, m.dist )
